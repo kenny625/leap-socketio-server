@@ -50,15 +50,15 @@ console.log(data);
 											  rowEndIndex = 53;
 										  }
 										  for(var j=rowStartIndex ;j<=rowEndIndex ;j++){
-										  	  left = keys[0]['left'];
+										  	  left = keys[j]['left'];
 										  	  if(j!=rowEndIndex){
-												  	right = keys.eq(j+1).position().left-1;
+												  	right = keys[j+1]['left'] - 1;
 										  	  }else{
 											  	  //the last key of this row
 											  	  right = 1286;
 										  	  }
-										  	  top = keys.eq(j).position().top;
-										  	  bottom = keys.eq(j).position().top + 89 -1;
+										  	  top = keys[j]['top'];
+										  	  bottom = keys[j]['top'] +89 - 1;
 										  	  
 										  	 
 										  	  
