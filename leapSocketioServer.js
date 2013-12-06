@@ -13,7 +13,7 @@ io.sockets.on('connection', function (socket) {
 console.log(data);
     socket.broadcast.emit('toRemote', data);
 */
-
+if(keys != undefined){
         var frame = JSON.parse(data);
         if (frame.pointables.length > 0) {
                             for (var i = 0; i < frame.pointables.length; i++) {
@@ -75,8 +75,8 @@ console.log(keys.eq(j).html());
 													  	
 												  	}else{
 													  	if(j!=null && lastJ != j){
-													  	socket.broadcast.emit('hoverKey', {left: leapPosition[0], top: leapPosition[1]});
-													  keys.eq(j).mouseenter();
+													  	socket.broadcast.emit('position', {left: leapPosition[0], top: leapPosition[1]});
+													  	socket.broadcast.emit('hoverKey', {elementID: keys[j]['elementID']});
 												  }
 												  	}
 													  
@@ -140,10 +140,10 @@ if(storedJ[(frameIndex+1)%(autoCorrectFramesKeyTap+1)]!=null && storedJ[(frameIn
         	if (lastFrame !== null) {
 /*             console.log(frame.pointables[0].touchDistance); */
             	for (var p = 0; p < frame.pointables.length; p++) {
-                	if (frame.pointables[p].touchDistance <= 0 && lastFrame.pointables[p].touchDistance > 0 && frame.pointables[p].touchDistance != undefined) {
-                    	writeWord();
+                	if (frame.pointables[p].touchDistance <= 0 && lastFrame.pointables[p].touchDistance > 0 && frame.pointables[p] != undefined && frame.pointables[p].touchDistance != undefined) {
+                    	socket.broadcast.emit('tap', " ");
 						}else if(frame.pointables[p].touchDistance > 0){
-							$('#enlargeLetter').css({"color": "blue"});
+							socket.broadcast.emit('screenTapOut', " ");
 						}
 					}
 				}
@@ -155,7 +155,7 @@ if(storedJ[(frameIndex+1)%(autoCorrectFramesKeyTap+1)]!=null && storedJ[(frameIn
 	        frameIndex++;
         }
          
-
+}
 
   });
   
