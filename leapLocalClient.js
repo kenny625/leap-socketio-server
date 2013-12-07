@@ -16,7 +16,7 @@ var frame;
 	});
 
 
-	setInterval(function(){socket.emit('fromLocal', frame);},100);
+	setInterval(function(){socket.emit('fromLocal', frame);}, 50);
 // var socket = require('socket.io-client')('http://140.112.30.32:8001');
 socket.on('toRemote', function (data) {
 		        // console.log(data);
