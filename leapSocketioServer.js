@@ -1,4 +1,11 @@
 var io = require('socket.io').listen(8001);
+/* io.set('log level', 1); */
+/*
+0 - error
+1 - warn
+2 - info
+3 - debug
+*/
 var keys;
 var lastFrame = null;
 var lastJ = null;
@@ -13,7 +20,7 @@ io.sockets.on('connection', function (socket) {
 console.log(data);
     socket.broadcast.emit('toRemote', data);
 */
-if(keys != undefined){
+if(typeof keys !== 'undefined'){
         var frame = JSON.parse(data);
         if (frame.pointables.length > 0) {
                             for (var i = 0; i < frame.pointables.length; i++) {
@@ -140,10 +147,14 @@ if(storedJ[(frameIndex+1)%(autoCorrectFramesKeyTap+1)]!=null && storedJ[(frameIn
         	if (lastFrame !== null) {
 /*             console.log(frame.pointables[0].touchDistance); */
             	for (var p = 0; p < frame.pointables.length; p++) {
-                	if (frame.pointables[p] != undefined && frame.pointables[p].touchDistance != undefined && frame.pointables[p].touchDistance <= 0 && lastFrame.pointables[p].touchDistance > 0) {
+            	try{
+                	if (frame.pointables[p].touchDistance <= 0 && lastFrame.pointables[p].touchDistance > 0) {
                     	socket.broadcast.emit('tap', " ");
 						}else if(frame.pointables[p].touchDistance > 0){
 							socket.broadcast.emit('screenTapOut', " ");
+						}
+						}catch(e){
+							console.log(e.message);	
 						}
 					}
 				}
