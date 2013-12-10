@@ -140,7 +140,7 @@ if(storedJ[(frameIndex+1)%(autoCorrectFramesKeyTap+1)]!=null && storedJ[(frameIn
         	if (lastFrame !== null) {
 /*             console.log(frame.pointables[0].touchDistance); */
             	for (var p = 0; p < frame.pointables.length; p++) {
-                	if (frame.pointables[p] != undefined && frame.pointables[p].touchDistance <= 0 && lastFrame.pointables[p].touchDistance > 0 && frame.pointables[p].touchDistance != undefined) {
+                	if (frame.pointables[p] != undefined && frame.pointables[p].touchDistance != undefined && frame.pointables[p].touchDistance <= 0 && lastFrame.pointables[p].touchDistance > 0) {
                     	socket.broadcast.emit('tap', " ");
 						}else if(frame.pointables[p].touchDistance > 0){
 							socket.broadcast.emit('screenTapOut', " ");
